@@ -3,7 +3,7 @@ This project collects the sentiment information from social media and news websi
 
 #### Data collector
 Getting the stock data and the sentiment data<br/>
-(twitter 官方API)[https://developer.twitter.com/en/docs/tutorials]<br/>
+[twitter 官方API](https://developer.twitter.com/en/docs/tutorials)<br/>
 1.从twitter或微博等社交平台下载相关内容，并保存为字典格式。（内容发布的时间、内容文本、用户等信息）<br/>
 2.下载指数或各股票历史数据，保存至csv文件。<br/>
 
