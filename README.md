@@ -5,6 +5,8 @@ This project collects the sentiment information from social media and news websi
 Getting the stock data and the sentiment data<br/>
 [twitter 官方API](https://developer.twitter.com/en/docs/tutorials)<br/>
 1.从twitter或微博等社交平台下载相关内容，并保存为字典格式。（内容发布的时间、内容文本、用户等信息）<br/>
+twitter的开发者账号需要申请，[weibo](weibo.cn)部分内容的获取可以参考这个[仓库](https://github.com/dataabc/weiboSpider)
+
 2.下载指数或各股票历史数据，保存至csv文件。<br/>
 
 
