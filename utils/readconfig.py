@@ -10,7 +10,7 @@ def readconfig():
 	cf.read("config.cfg")
 	config={}
 
-	print(cf.sections())
+	# print(cf.sections())
 	for section in cf.sections():
 		for key,value in cf.items(section):
 			config[key]=value
