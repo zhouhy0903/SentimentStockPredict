@@ -28,18 +28,11 @@ class crawler():
     def run(self):
         pass
     
+
     def convertdate(self,wbdate):
         format='%Y-%m-%d %H:%M:%S'
         monthdict={v:k+1 for k,v in dict(enumerate(['Jan','Feb','Mar','Apr','May','Jul','Jun','Aug','Sep','Oct','Nov','Dec'])).items()}        
         wbdate='%s-%s-%s %s' % (wbdate[wbdate.rfind(" ")+1:],str(monthdict[wbdate.split(" ")[1]]).zfill(2),wbdate.split(" ")[2],wbdate.split(" ")[3])
-        # if u"刚刚" in wbdate:
-        #     return datetime.now().strftime(format)
-        # if u"分钟前" in wbdate:
-        #     return (datetime.now()-timedelta(minutes=int(wbdate[:wbdate.find(u"分钟前")]))).strftime(format)
-        # if u"小时前" in wbdate:
-        #     return (datetime.now()-timedelta(hours=int(wbdate[:wbdate.find(u"小时前")]))).strftime(format)
-        # if u"今天" in wbdate:
-            # return ()
         return wbdate
 
     def get_page_json(self,pagenum):
@@ -68,14 +61,24 @@ class crawler():
     def get_page(self,pagenum):
         reply=self.get_page_json(pagenum)
         wb_list=[]
+        if reply['ok']==0:
+            print(reply)
+            raise Exception("Too frequent!")    
+
         if reply['ok']==1:
+            print("Reply ok!")
             # print(reply['data']['cards'])
             cards=reply['data']['cards']
-            
+                
             for card in cards:
                 # isLong=card['mblog'].get('isLongText')
+                print(card)
+                print("\n"*5)
                 wb={}                
                 # get weibo info
+                if not card.get('mblog'):
+                    print("Not find mblog")
+                    continue
                 wb["wbid"]=card['mblog'].get('id')
                 wb["time"]=self.convertdate(card['mblog']['created_at'])
                 # get text content
@@ -92,19 +95,29 @@ class crawler():
                         html=etree.HTML(html_json["status"]["text"])
                         wb["text"]=html.xpath('string(.)')
                         break
-                    sleep(randint(2,5))
+                    sleep(randint(10,15))
                 
                 wb_list.append(wb)
         else:
             pass
         self.wb_list.extend(wb_list)
+        print(len(self.wb_list))
         return
 
     def get_max_page(self):
         return 100 #待修改
 
-    # 用于实现获取指定页数 
-    def get_pages(self,startdate,enddate):
+    # 用于实现获取指定页数
+    def get_pages(self,startpage,endpage):
+        if startpage>endpage:
+            startpage,endpage=endpage,startpage
+        for i in range(startpage,endpage):
+            print("Crawling page %s" % i)
+            self.get_page(i)
+            sleep(randint(1,40)/10)
+        return self.wb_list
+
+    def get_pages_by_date(self,startdate,enddate):
         page20=self.get_page_firsttime(20)
         sleep(randint(1,500)/50)
         page1=self.get_page_firsttime(1)
@@ -161,27 +174,60 @@ class crawler():
         
         print(startpage,starttime)
         print(endpage,endtime)
-        print("Crawling from %s to %s pages" % (startpage,endpage))
-        for i in range(startpage,endpage,-1):
-            print("Crawling page %s" % i)
-            self.get_page(i)
-            sleep(randint(1,40)/10)
-
+        print("Crawling from %s to %s pages" % (endpage,startpage))
+        self.get_pages(endpage,startpage)
         
 
 
+    def write2csv(self,f):
+        for wb in self.wb_list:
+            f.write(",".join([str(v) for v in wb.values()])+"\n")
 
 
 
 if __name__=="__main__":
     # 这里填写需要抓取的用户id和cookie
-    mycrawler=crawler("2803301701")
-    startdate="2021-12-03"
-    enddate="2021-12-05"
+    #mycrawler=crawler("1638782947","ALF=1640362327; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRBsyH9vcYQI4lI1o5lUJmTvEBaQYooAa_blD0ngic-SU.; SUB=_2A25MpeeTDeRhGeBN7VIQ9SrEyzWIHXVsaYnbrDV6PUJbktCOLWutkW1NREAMJFbFqy3iLLRvpX43kTyJe_xfLPMo; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5NHD95Qce0q7eK-X1h54Ws4DqcjSMNxyMrS7qgSLPNDQwBtt; _T_WM=55480958530; MLOGIN=1; M_WEIBOCN_PARAMS=oid=4713851914813553&luicode=10000011&lfid=1076032803301701")
+    uid=input("Enter uid: ")
+    mycrawler=crawler(uid,"WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=64490460479; XSRF-TOKEN=1707eb; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRX_XOIN_ZUMvmJTkeeYj4YPPFYUafwWl3vFm2T495EA0.; SUB=_2A25MxNJWDeRhGeBN7VIQ9SrEyzWIHXVsRv4erDV6PUJbktCOLXnXkW1NREAMJATHbPRRHEnR-qMeRY23rrGLm7eG; SSOLoginState=1640014342; ALF=1642606342; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
+    #startdate="2021-12-03"
+    #enddate="2021-12-05"
 
-    mycrawler.get_pages(startdate,enddate)
-    wb_dataframe=pd.DataFrame(mycrawler.wb_list)
-    wb_dataframe["title"]=wb_dataframe["text"].apply(lambda x:x[x.find("【"):x.find("】")+1])
-    print(wb_dataframe)
-    # wb_dataframe.to_csv("test_ren.csv",index=False)
+    startpage=int(input("Enter start page: "))
+    #endpage=28065
+    endpage=28065
+    
+    filename="xinhuashe.csv"
+    
+    curpage=startpage
+    pagenum=4 
+    for i in range(startpage,endpage-pagenum,pagenum):
+        pagenum=randint(3,7)
+        while True:
+            try:
+                print("Crawling from %s to %s" % (i,i+pagenum))
+                curpage=i+pagenum
+                mycrawler.get_pages(i,i+pagenum)
+                if len(mycrawler.wb_list)!=0 and mycrawler.wb_list[0]["text"]!="":
+                    with open(filename,"a") as f:
+                        mycrawler.write2csv(f)
+               
+                sleep(randint(20,60))
+
+                if len(mycrawler.wb_list)!=0 and mycrawler.wb_list[0]["text"]!="":
+                    mycrawler.wb_list=[]
+                    break
+            except:
+                sleep(randint(60,120))
+                print("Retrying...")
+
+    mycrawler.get_pages(curpage,endpage)
+    with open(filename,"a") as f:
+        mycrawler.write2csv(f)
+
+    #wb_dataframe=pd.DataFrame(mycrawler.wb_list)
+    #wb_dataframe["title"]=wb_dataframe["text"].apply(lambda x:x[x.find("【"):x.find("】")+1])
+    
+    #print(wb_dataframe)
+    #wb_dataframe.to_csv("caijingwang.csv",index=False)
 
