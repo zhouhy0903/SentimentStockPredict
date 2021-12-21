@@ -189,7 +189,8 @@ if __name__=="__main__":
     # 这里填写需要抓取的用户id和cookie
     #mycrawler=crawler("1638782947","ALF=1640362327; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRBsyH9vcYQI4lI1o5lUJmTvEBaQYooAa_blD0ngic-SU.; SUB=_2A25MpeeTDeRhGeBN7VIQ9SrEyzWIHXVsaYnbrDV6PUJbktCOLWutkW1NREAMJFbFqy3iLLRvpX43kTyJe_xfLPMo; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5NHD95Qce0q7eK-X1h54Ws4DqcjSMNxyMrS7qgSLPNDQwBtt; _T_WM=55480958530; MLOGIN=1; M_WEIBOCN_PARAMS=oid=4713851914813553&luicode=10000011&lfid=1076032803301701")
     uid=input("Enter uid: ")
-    mycrawler=crawler(uid,"WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=64490460479; XSRF-TOKEN=1707eb; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRX_XOIN_ZUMvmJTkeeYj4YPPFYUafwWl3vFm2T495EA0.; SUB=_2A25MxNJWDeRhGeBN7VIQ9SrEyzWIHXVsRv4erDV6PUJbktCOLXnXkW1NREAMJATHbPRRHEnR-qMeRY23rrGLm7eG; SSOLoginState=1640014342; ALF=1642606342; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
+    cookies=input("Enter cookies: ")
+    mycrawler=crawler(uid,cookies)
     #startdate="2021-12-03"
     #enddate="2021-12-05"
 
@@ -197,7 +198,7 @@ if __name__=="__main__":
     #endpage=28065
     endpage=28065
     
-    filename="xinhuashe.csv"
+    filename=input("Enter savefile name: ")
     
     curpage=startpage
     pagenum=4 
