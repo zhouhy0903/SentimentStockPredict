@@ -21,7 +21,7 @@ import platform
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 from datacollector.wb import crawler
-
+from model.prepare import inputtext
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -42,11 +42,16 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-
+        # ui related
         self.ui.lineEdit_2.setText("1618051664")
         self.ui.lineEdit_3.setText("WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=65508160464; XSRF-TOKEN=17523d; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRE2bAP1GUSzQugoEGlJGOpUZgdaOkVzw8whB7qRlNsKQ.; SUB=_2A25MxmTSDeRhGeBN7VIQ9SrEyzWIHXVsSQyarDV6PUJbktAKLWT2kW1NREAMJJj-dB53n5BNd5ZLK_DjfG4xvwKA; SSOLoginState=1640109186; ALF=1642701186; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
         self.ui.lineEdit_4.setText("1")
         self.ui.lineEdit_5.setText("1")
+
+        self.ui.lineEdit_filelocation.setText(r"C:\Users\zhy99\Desktop\code\final\20211222\SentimentStockPredict\example.csv")
+        
+        # global variable        
+        self.text_df=None
 
 
 
@@ -83,8 +88,12 @@ class MainWindow(QMainWindow):
         # LEFT MENUS
         widgets.btn_home.clicked.connect(self.buttonClick)
         widgets.btn_widgets.clicked.connect(self.buttonClick)
+        widgets.btn_new.clicked.connect(self.buttonClick)
+
         widgets.pushButton_2.clicked.connect(self.getpage)
-        # widgets.btn_new.clicked.connect(self.buttonClick)
+        widgets.pushButton_getWordFrequency.clicked.connect(self.getWordFrequency)
+        widgets.pushButton_sentiment.clicked.connect(self.getSentiment)
+
         # widgets.btn_save.clicked.connect(self.buttonClick)
 
         # EXTRA LEFT BOX
@@ -146,11 +155,11 @@ class MainWindow(QMainWindow):
         #     UIFunctions.resetStyle(self, btnName)
         #     btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
 
-        # # SHOW NEW PAGE
-        # if btnName == "btn_new":
-        #     widgets.stackedWidget.setCurrentWidget(widgets.new_page) # SET PAGE
-        #     UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
-        #     btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+        # SHOW NEW PAGE
+        if btnName == "btn_new":
+            widgets.stackedWidget.setCurrentWidget(widgets.sentiment_page) # SET PAGE
+            UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
+            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
 
         # if btnName == "btn_save":
         #     print("Save BTN clicked!")
@@ -177,6 +186,20 @@ class MainWindow(QMainWindow):
             self.ui.weibotext.insertPlainText(",".join([str(v) for v in wb.values()])+"\n\n")
         # self.ui.textBrowser.show()
         # self.ui.textBrowser.repaint()
+
+    def getWordFrequency(self):
+        if self.text_df is None:
+            myinputtext=inputtext()
+            self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        text_removestopword=myinputtext.remove_stopword(self.text_df)
+        self.ui.plainTextEdit_result.setPlainText("testWordFrequency")
+
+    
+    def getSentiment(self):
+        myinputtext=inputtext()
+        if self.text_df is None:
+            self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        self.ui.plainTextEdit_result.setPlainText("testSentiment")
 
     # RESIZE EVENTS
     # ///////////////////////////////////////////////////////////////

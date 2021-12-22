@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(973, 618)
+        MainWindow.resize(1280, 720)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -671,9 +671,33 @@ class Ui_MainWindow(object):
         self.btn_widgets.setFont(font)
         self.btn_widgets.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_widgets.setLayoutDirection(Qt.LeftToRight)
-        self.btn_widgets.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-gamepad.png);")
+        self.btn_widgets.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-star.png);")
 
         self.verticalLayout_8.addWidget(self.btn_widgets)
+
+        self.btn_new = QPushButton(self.topMenu)
+        self.btn_new.setObjectName(u"btn_new")
+        sizePolicy.setHeightForWidth(self.btn_new.sizePolicy().hasHeightForWidth())
+        self.btn_new.setSizePolicy(sizePolicy)
+        self.btn_new.setMinimumSize(QSize(0, 45))
+        self.btn_new.setFont(font)
+        self.btn_new.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_new.setLayoutDirection(Qt.LeftToRight)
+        self.btn_new.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-3d.png);")
+
+        self.verticalLayout_8.addWidget(self.btn_new)
+
+        self.btn_save = QPushButton(self.topMenu)
+        self.btn_save.setObjectName(u"btn_save")
+        sizePolicy.setHeightForWidth(self.btn_save.sizePolicy().hasHeightForWidth())
+        self.btn_save.setSizePolicy(sizePolicy)
+        self.btn_save.setMinimumSize(QSize(0, 45))
+        self.btn_save.setFont(font)
+        self.btn_save.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_save.setLayoutDirection(Qt.LeftToRight)
+        self.btn_save.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-size-grip.png)")
+
+        self.verticalLayout_8.addWidget(self.btn_save)
 
         self.btn_exit = QPushButton(self.topMenu)
         self.btn_exit.setObjectName(u"btn_exit")
@@ -1153,7 +1177,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 222, 222))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 325, 222))
         self.scrollAreaWidgetContents.setStyleSheet(u" QScrollBar:vertical {\n"
 "	border: none;\n"
 "    background: rgb(52, 59, 72);\n"
@@ -1356,11 +1380,52 @@ class Ui_MainWindow(object):
         self.verticalLayout_20.addWidget(self.label)
 
         self.stackedWidget.addWidget(self.new_page)
+        self.sentiment_page = QWidget()
+        self.sentiment_page.setObjectName(u"sentiment_page")
+        self.widget = QWidget(self.sentiment_page)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(390, 120, 258, 316))
+        self.gridLayout_3 = QGridLayout(self.widget)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.splitter = QSplitter(self.widget)
+        self.splitter.setObjectName(u"splitter")
+        self.splitter.setOrientation(Qt.Horizontal)
+        self.pushButton_getWordFrequency = QPushButton(self.splitter)
+        self.pushButton_getWordFrequency.setObjectName(u"pushButton_getWordFrequency")
+        self.splitter.addWidget(self.pushButton_getWordFrequency)
+        self.pushButton_sentiment = QPushButton(self.splitter)
+        self.pushButton_sentiment.setObjectName(u"pushButton_sentiment")
+        self.splitter.addWidget(self.pushButton_sentiment)
+
+        self.gridLayout_3.addWidget(self.splitter, 2, 1, 1, 1)
+
+        self.label_filelocation = QLabel(self.widget)
+        self.label_filelocation.setObjectName(u"label_filelocation")
+
+        self.gridLayout_3.addWidget(self.label_filelocation, 1, 0, 1, 1)
+
+        self.label_getresult = QLabel(self.widget)
+        self.label_getresult.setObjectName(u"label_getresult")
+
+        self.gridLayout_3.addWidget(self.label_getresult, 0, 0, 1, 2)
+
+        self.plainTextEdit_result = QPlainTextEdit(self.widget)
+        self.plainTextEdit_result.setObjectName(u"plainTextEdit_result")
+
+        self.gridLayout_3.addWidget(self.plainTextEdit_result, 3, 0, 1, 2)
+
+        self.lineEdit_filelocation = QLineEdit(self.widget)
+        self.lineEdit_filelocation.setObjectName(u"lineEdit_filelocation")
+
+        self.gridLayout_3.addWidget(self.lineEdit_filelocation, 1, 1, 1, 1)
+
+        self.stackedWidget.addWidget(self.sentiment_page)
         self.page = QWidget()
         self.page.setObjectName(u"page")
         self.groupBox = QGroupBox(self.page)
         self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(40, 20, 352, 449))
+        self.groupBox.setGeometry(QRect(100, 70, 352, 449))
         self.verticalLayout_21 = QVBoxLayout(self.groupBox)
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
         self.label_5 = QLabel(self.groupBox)
@@ -1417,7 +1482,7 @@ class Ui_MainWindow(object):
 
         self.weibotext = QPlainTextEdit(self.page)
         self.weibotext.setObjectName(u"weibotext")
-        self.weibotext.setGeometry(QRect(480, 160, 291, 161))
+        self.weibotext.setGeometry(QRect(550, 200, 291, 161))
         self.stackedWidget.addWidget(self.page)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
@@ -1573,6 +1638,8 @@ class Ui_MainWindow(object):
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.btn_widgets.setText(QCoreApplication.translate("MainWindow", u"Widgets", None))
+        self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
+        self.btn_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
         self.extraLabel.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
@@ -1681,6 +1748,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
         self.label.setText(QCoreApplication.translate("MainWindow", u"NEW PAGE TEST", None))
+        self.pushButton_getWordFrequency.setText(QCoreApplication.translate("MainWindow", u"\u7edf\u8ba1\u8bcd\u9891", None))
+        self.pushButton_sentiment.setText(QCoreApplication.translate("MainWindow", u"\u60c5\u611f\u5206\u6790", None))
+        self.label_filelocation.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u4f4d\u7f6e", None))
+        self.label_getresult.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">\u7ed3\u679c\u5206\u6790</span></p></body></html>", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u7528\u6237uid</span></p></body></html>", None))

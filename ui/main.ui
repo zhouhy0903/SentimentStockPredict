@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>973</width>
-    <height>618</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -908,10 +908,84 @@ Button */
                    <enum>Qt::LeftToRight</enum>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-image: url(:/icons/images/icons/cil-gamepad.png);</string>
+                   <string notr="true">background-image: url(:/icons/images/icons/cil-star.png);</string>
                   </property>
                   <property name="text">
                    <string>Widgets</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_new">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>45</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>10</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-image: url(:/icons/images/icons/cil-3d.png);</string>
+                  </property>
+                  <property name="text">
+                   <string>New</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_save">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>45</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>10</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-image: url(:/icons/images/icons/cil-size-grip.png)</string>
+                  </property>
+                  <property name="text">
+                   <string>Save</string>
                   </property>
                  </widget>
                 </item>
@@ -2106,7 +2180,7 @@ background-repeat: no-repeat;</string>
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>222</width>
+                                 <width>325</width>
                                  <height>222</height>
                                 </rect>
                                </property>
@@ -2639,12 +2713,63 @@ background-repeat: no-repeat;</string>
                        </item>
                       </layout>
                      </widget>
+                     <widget class="QWidget" name="sentiment_page">
+                      <widget class="QWidget" name="">
+                       <property name="geometry">
+                        <rect>
+                         <x>390</x>
+                         <y>120</y>
+                         <width>258</width>
+                         <height>316</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_3">
+                        <item row="2" column="1">
+                         <widget class="QSplitter" name="splitter">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <widget class="QPushButton" name="pushButton_getWordFrequency">
+                           <property name="text">
+                            <string>统计词频</string>
+                           </property>
+                          </widget>
+                          <widget class="QPushButton" name="pushButton_sentiment">
+                           <property name="text">
+                            <string>情感分析</string>
+                           </property>
+                          </widget>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="label_filelocation">
+                          <property name="text">
+                           <string>文件位置</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="0" colspan="2">
+                         <widget class="QLabel" name="label_getresult">
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;结果分析&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="0" colspan="2">
+                         <widget class="QPlainTextEdit" name="plainTextEdit_result"/>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLineEdit" name="lineEdit_filelocation"/>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
                      <widget class="QWidget" name="page">
                       <widget class="QGroupBox" name="groupBox">
                        <property name="geometry">
                         <rect>
-                         <x>40</x>
-                         <y>20</y>
+                         <x>100</x>
+                         <y>70</y>
                          <width>352</width>
                          <height>449</height>
                         </rect>
@@ -2730,8 +2855,8 @@ background-repeat: no-repeat;</string>
                       <widget class="QPlainTextEdit" name="weibotext">
                        <property name="geometry">
                         <rect>
-                         <x>480</x>
-                         <y>160</y>
+                         <x>550</x>
+                         <y>200</y>
                          <width>291</width>
                          <height>161</height>
                         </rect>
