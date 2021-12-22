@@ -2180,7 +2180,7 @@ background-repeat: no-repeat;</string>
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>325</width>
+                                 <width>222</width>
                                  <height>222</height>
                                 </rect>
                                </property>
@@ -2718,13 +2718,40 @@ background-repeat: no-repeat;</string>
                        <property name="geometry">
                         <rect>
                          <x>390</x>
-                         <y>120</y>
+                         <y>100</y>
                          <width>258</width>
-                         <height>316</height>
+                         <height>352</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_3">
+                        <item row="0" column="0" colspan="2">
+                         <widget class="QLabel" name="label_getresult">
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;结果分析&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="label_filelocation">
+                          <property name="text">
+                           <string>文件位置</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLineEdit" name="lineEdit_filelocation"/>
+                        </item>
+                        <item row="2" column="0">
+                         <widget class="QLabel" name="label_searchText">
+                          <property name="text">
+                           <string>搜索词</string>
+                          </property>
+                         </widget>
+                        </item>
                         <item row="2" column="1">
+                         <widget class="QLineEdit" name="lineEdit_searchText"/>
+                        </item>
+                        <item row="3" column="1">
                          <widget class="QSplitter" name="splitter">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
@@ -2741,25 +2768,8 @@ background-repeat: no-repeat;</string>
                           </widget>
                          </widget>
                         </item>
-                        <item row="1" column="0">
-                         <widget class="QLabel" name="label_filelocation">
-                          <property name="text">
-                           <string>文件位置</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0" colspan="2">
-                         <widget class="QLabel" name="label_getresult">
-                          <property name="text">
-                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;结果分析&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="0" colspan="2">
+                        <item row="4" column="0" colspan="2">
                          <widget class="QPlainTextEdit" name="plainTextEdit_result"/>
-                        </item>
-                        <item row="1" column="1">
-                         <widget class="QLineEdit" name="lineEdit_filelocation"/>
                         </item>
                        </layout>
                       </widget>

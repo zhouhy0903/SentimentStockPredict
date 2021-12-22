@@ -22,6 +22,9 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 from datacollector.wb import crawler
 from model.prepare import inputtext
+import jieba
+import re
+from snownlp import SnowNLP
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -188,18 +191,47 @@ class MainWindow(QMainWindow):
         # self.ui.textBrowser.repaint()
 
     def getWordFrequency(self):
+        myinputtext=inputtext()
         if self.text_df is None:
-            myinputtext=inputtext()
             self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
-        text_removestopword=myinputtext.remove_stopword(self.text_df)
-        self.ui.plainTextEdit_result.setPlainText("testWordFrequency")
+        text_list=[jieba.lcut(t) for t in self.text_df["text"].tolist()]
+        print(text_list[:2])
+        print()
+
+        text_removestopword=myinputtext.remove_stopword(text_list)
+        print(text_removestopword[:2])
+
+        # inputSearchText="疫情;经济,科技:历史"
+        inputSearchText=self.ui.lineEdit_searchText.text()
+        print(inputSearchText)
+        keywords=re.split('[,;:]',inputSearchText)
+        # keywords_count={"疫情":0,"经济":0}
+        keywords_count=dict(zip(keywords,[0]*len(keywords)))
+        print(keywords_count)
+        for sentence in text_removestopword:
+            for text in sentence:
+                if text in keywords_count.keys():
+                    keywords_count[text]+=1
+
+        print(keywords_count)
+        result_text=""
+        for key,values in keywords_count.items():
+            result_text+="{}出现了{}次\n".format(key,values)
+        # print(text_removestopword)        
+        
+        self.ui.plainTextEdit_result.setPlainText(result_text)
 
     
     def getSentiment(self):
         myinputtext=inputtext()
         if self.text_df is None:
             self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
-        self.ui.plainTextEdit_result.setPlainText("testSentiment")
+        
+        self.ui.plainTextEdit_result.setPlainText("分析文本情感指数...")
+        for text in self.text_df["text"].to_list():
+            s=SnowNLP(text)
+            self.ui.plainTextEdit_result.insertPlainText("%s %.2f" % (text,s.sentiments)+"\n")
+
 
     # RESIZE EVENTS
     # ///////////////////////////////////////////////////////////////

@@ -1177,7 +1177,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 325, 222))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 222, 222))
         self.scrollAreaWidgetContents.setStyleSheet(u" QScrollBar:vertical {\n"
 "	border: none;\n"
 "    background: rgb(52, 59, 72);\n"
@@ -1384,10 +1384,35 @@ class Ui_MainWindow(object):
         self.sentiment_page.setObjectName(u"sentiment_page")
         self.widget = QWidget(self.sentiment_page)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(390, 120, 258, 316))
+        self.widget.setGeometry(QRect(390, 100, 258, 352))
         self.gridLayout_3 = QGridLayout(self.widget)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.label_getresult = QLabel(self.widget)
+        self.label_getresult.setObjectName(u"label_getresult")
+
+        self.gridLayout_3.addWidget(self.label_getresult, 0, 0, 1, 2)
+
+        self.label_filelocation = QLabel(self.widget)
+        self.label_filelocation.setObjectName(u"label_filelocation")
+
+        self.gridLayout_3.addWidget(self.label_filelocation, 1, 0, 1, 1)
+
+        self.lineEdit_filelocation = QLineEdit(self.widget)
+        self.lineEdit_filelocation.setObjectName(u"lineEdit_filelocation")
+
+        self.gridLayout_3.addWidget(self.lineEdit_filelocation, 1, 1, 1, 1)
+
+        self.label_searchText = QLabel(self.widget)
+        self.label_searchText.setObjectName(u"label_searchText")
+
+        self.gridLayout_3.addWidget(self.label_searchText, 2, 0, 1, 1)
+
+        self.lineEdit_searchText = QLineEdit(self.widget)
+        self.lineEdit_searchText.setObjectName(u"lineEdit_searchText")
+
+        self.gridLayout_3.addWidget(self.lineEdit_searchText, 2, 1, 1, 1)
+
         self.splitter = QSplitter(self.widget)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
@@ -1398,27 +1423,12 @@ class Ui_MainWindow(object):
         self.pushButton_sentiment.setObjectName(u"pushButton_sentiment")
         self.splitter.addWidget(self.pushButton_sentiment)
 
-        self.gridLayout_3.addWidget(self.splitter, 2, 1, 1, 1)
-
-        self.label_filelocation = QLabel(self.widget)
-        self.label_filelocation.setObjectName(u"label_filelocation")
-
-        self.gridLayout_3.addWidget(self.label_filelocation, 1, 0, 1, 1)
-
-        self.label_getresult = QLabel(self.widget)
-        self.label_getresult.setObjectName(u"label_getresult")
-
-        self.gridLayout_3.addWidget(self.label_getresult, 0, 0, 1, 2)
+        self.gridLayout_3.addWidget(self.splitter, 3, 1, 1, 1)
 
         self.plainTextEdit_result = QPlainTextEdit(self.widget)
         self.plainTextEdit_result.setObjectName(u"plainTextEdit_result")
 
-        self.gridLayout_3.addWidget(self.plainTextEdit_result, 3, 0, 1, 2)
-
-        self.lineEdit_filelocation = QLineEdit(self.widget)
-        self.lineEdit_filelocation.setObjectName(u"lineEdit_filelocation")
-
-        self.gridLayout_3.addWidget(self.lineEdit_filelocation, 1, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.plainTextEdit_result, 4, 0, 1, 2)
 
         self.stackedWidget.addWidget(self.sentiment_page)
         self.page = QWidget()
@@ -1748,10 +1758,11 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
         self.label.setText(QCoreApplication.translate("MainWindow", u"NEW PAGE TEST", None))
+        self.label_getresult.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">\u7ed3\u679c\u5206\u6790</span></p></body></html>", None))
+        self.label_filelocation.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u4f4d\u7f6e", None))
+        self.label_searchText.setText(QCoreApplication.translate("MainWindow", u"\u641c\u7d22\u8bcd", None))
         self.pushButton_getWordFrequency.setText(QCoreApplication.translate("MainWindow", u"\u7edf\u8ba1\u8bcd\u9891", None))
         self.pushButton_sentiment.setText(QCoreApplication.translate("MainWindow", u"\u60c5\u611f\u5206\u6790", None))
-        self.label_filelocation.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u4f4d\u7f6e", None))
-        self.label_getresult.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">\u7ed3\u679c\u5206\u6790</span></p></body></html>", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u7528\u6237uid</span></p></body></html>", None))
