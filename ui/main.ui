@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>973</width>
+    <height>618</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1800,7 +1800,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>3</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -2106,8 +2106,8 @@ background-repeat: no-repeat;</string>
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>357</width>
-                                 <height>218</height>
+                                 <width>222</width>
+                                 <height>222</height>
                                 </rect>
                                </property>
                                <property name="styleSheet">
@@ -2640,149 +2640,100 @@ background-repeat: no-repeat;</string>
                       </layout>
                      </widget>
                      <widget class="QWidget" name="page">
-                      <widget class="QLineEdit" name="lineEdit_2">
+                      <widget class="QGroupBox" name="groupBox">
                        <property name="geometry">
                         <rect>
-                         <x>490</x>
-                         <y>140</y>
-                         <width>113</width>
-                         <height>20</height>
+                         <x>40</x>
+                         <y>20</y>
+                         <width>352</width>
+                         <height>449</height>
                         </rect>
                        </property>
+                       <property name="title">
+                        <string>GroupBox</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_21">
+                        <item>
+                         <widget class="QLabel" name="label_5">
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;微博文本内容爬取&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_2">
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>10</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;用户uid&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEdit_2"/>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_3">
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;登录cookies&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEdit_3"/>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_4">
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;爬取起始页面&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEdit_4"/>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_6">
+                          <property name="text">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;爬取终止页面&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEdit_5"/>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="pushButton_2">
+                          <property name="text">
+                           <string>开始爬取</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
-                      <widget class="QLabel" name="label_2">
+                      <widget class="QPlainTextEdit" name="weibotext">
                        <property name="geometry">
                         <rect>
-                         <x>396</x>
-                         <y>140</y>
-                         <width>81</width>
-                         <height>31</height>
-                        </rect>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI</family>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <italic>false</italic>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;用户uid&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                      <widget class="QLineEdit" name="lineEdit_3">
-                       <property name="geometry">
-                        <rect>
-                         <x>490</x>
-                         <y>170</y>
-                         <width>113</width>
-                         <height>20</height>
-                        </rect>
-                       </property>
-                      </widget>
-                      <widget class="QLabel" name="label_3">
-                       <property name="geometry">
-                        <rect>
-                         <x>366</x>
-                         <y>170</y>
-                         <width>111</width>
-                         <height>31</height>
-                        </rect>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;登录cookies&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                      <widget class="QLineEdit" name="lineEdit_4">
-                       <property name="geometry">
-                        <rect>
-                         <x>490</x>
-                         <y>200</y>
-                         <width>113</width>
-                         <height>20</height>
-                        </rect>
-                       </property>
-                      </widget>
-                      <widget class="QLabel" name="label_4">
-                       <property name="geometry">
-                        <rect>
-                         <x>356</x>
-                         <y>200</y>
-                         <width>121</width>
-                         <height>31</height>
-                        </rect>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;爬取起始页面&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                      <widget class="QLabel" name="label_5">
-                       <property name="geometry">
-                        <rect>
-                         <x>380</x>
-                         <y>50</y>
-                         <width>271</width>
-                         <height>81</height>
-                        </rect>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI</family>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <italic>false</italic>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;微博文本内容爬取&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                      <widget class="QLabel" name="label_6">
-                       <property name="geometry">
-                        <rect>
-                         <x>356</x>
-                         <y>230</y>
-                         <width>121</width>
-                         <height>21</height>
-                        </rect>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;爬取终止页面&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                      <widget class="QLineEdit" name="lineEdit_5">
-                       <property name="geometry">
-                        <rect>
-                         <x>490</x>
-                         <y>230</y>
-                         <width>113</width>
-                         <height>20</height>
-                        </rect>
-                       </property>
-                      </widget>
-                      <widget class="QPushButton" name="pushButton_2">
-                       <property name="geometry">
-                        <rect>
-                         <x>490</x>
-                         <y>270</y>
-                         <width>75</width>
-                         <height>23</height>
-                        </rect>
-                       </property>
-                       <property name="text">
-                        <string>开始爬取</string>
-                       </property>
-                      </widget>
-                      <widget class="QTextBrowser" name="textBrowser">
-                       <property name="geometry">
-                        <rect>
-                         <x>410</x>
-                         <y>340</y>
-                         <width>256</width>
-                         <height>192</height>
+                         <x>480</x>
+                         <y>160</y>
+                         <width>291</width>
+                         <height>161</height>
                         </rect>
                        </property>
                       </widget>

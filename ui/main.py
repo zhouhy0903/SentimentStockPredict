@@ -167,8 +167,14 @@ class MainWindow(QMainWindow):
         print(self.ui.lineEdit_5.text())
         mycrawl=crawler(userid=int(self.ui.lineEdit_2.text()),cookie=self.ui.lineEdit_3.text())
         mycrawl.get_pages(startpage=int(self.ui.lineEdit_4.text()),endpage=int(self.ui.lineEdit_5.text()))
-        # print(mycrawl)
-        self.ui.weibotext.insertPlainText("test\n")
+        
+        print(mycrawl.wb_list)
+
+        self.ui.weibotext.setPlainText("")
+
+        for wb in mycrawl.wb_list:  
+            del wb["wbid"],wb["comment"],wb["repost"]  
+            self.ui.weibotext.insertPlainText(",".join([str(v) for v in wb.values()])+"\n\n")
         # self.ui.textBrowser.show()
         # self.ui.textBrowser.repaint()
 

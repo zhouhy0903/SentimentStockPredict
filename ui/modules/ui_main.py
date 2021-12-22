@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1280, 720)
+        MainWindow.resize(973, 618)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -71,7 +71,7 @@ class Ui_MainWindow(object):
 "}\n"
 "#topLogo {\n"
 "	background-color: rgb(33, 37, 43);\n"
-"	background-image: url(:/images/images/images/left.png);\n"
+"	background-image: url(:/images/images/images/PyDracula.png);\n"
 "	background-position: centered;\n"
 "	background-repeat: no-repeat;\n"
 "}\n"
@@ -675,41 +675,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.btn_widgets)
 
-        # self.btn_new = QPushButton(self.topMenu)
-        # self.btn_new.setObjectName(u"btn_new")
-        # sizePolicy.setHeightForWidth(self.btn_new.sizePolicy().hasHeightForWidth())
-        # self.btn_new.setSizePolicy(sizePolicy)
-        # self.btn_new.setMinimumSize(QSize(0, 45))
-        # self.btn_new.setFont(font)
-        # self.btn_new.setCursor(QCursor(Qt.PointingHandCursor))
-        # self.btn_new.setLayoutDirection(Qt.LeftToRight)
-        # self.btn_new.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-file.png);")
+        self.btn_exit = QPushButton(self.topMenu)
+        self.btn_exit.setObjectName(u"btn_exit")
+        sizePolicy.setHeightForWidth(self.btn_exit.sizePolicy().hasHeightForWidth())
+        self.btn_exit.setSizePolicy(sizePolicy)
+        self.btn_exit.setMinimumSize(QSize(0, 45))
+        self.btn_exit.setFont(font)
+        self.btn_exit.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_exit.setLayoutDirection(Qt.LeftToRight)
+        self.btn_exit.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-x.png);")
 
-        # self.verticalLayout_8.addWidget(self.btn_new)
-
-        # self.btn_save = QPushButton(self.topMenu)
-        # self.btn_save.setObjectName(u"btn_save")
-        # sizePolicy.setHeightForWidth(self.btn_save.sizePolicy().hasHeightForWidth())
-        # self.btn_save.setSizePolicy(sizePolicy)
-        # self.btn_save.setMinimumSize(QSize(0, 45))
-        # self.btn_save.setFont(font)
-        # self.btn_save.setCursor(QCursor(Qt.PointingHandCursor))
-        # self.btn_save.setLayoutDirection(Qt.LeftToRight)
-        # self.btn_save.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-save.png)")
-
-        # self.verticalLayout_8.addWidget(self.btn_save)
-
-        # self.btn_exit = QPushButton(self.topMenu)
-        # self.btn_exit.setObjectName(u"btn_exit")
-        # sizePolicy.setHeightForWidth(self.btn_exit.sizePolicy().hasHeightForWidth())
-        # self.btn_exit.setSizePolicy(sizePolicy)
-        # self.btn_exit.setMinimumSize(QSize(0, 45))
-        # self.btn_exit.setFont(font)
-        # self.btn_exit.setCursor(QCursor(Qt.PointingHandCursor))
-        # self.btn_exit.setLayoutDirection(Qt.LeftToRight)
-        # self.btn_exit.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-x.png);")
-
-        # self.verticalLayout_8.addWidget(self.btn_exit)
+        self.verticalLayout_8.addWidget(self.btn_exit)
 
 
         self.verticalMenuLayout.addWidget(self.topMenu, 0, Qt.AlignTop)
@@ -1032,7 +1008,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.setStyleSheet(u"background: transparent;")
         self.home = QWidget()
         self.home.setObjectName(u"home")
-        self.home.setStyleSheet(u"background-image: url(:/images/images/images/vertical.png);\n"
+        self.home.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
 "background-position: center;\n"
 "background-repeat: no-repeat;")
         self.stackedWidget.addWidget(self.home)
@@ -1177,7 +1153,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 348, 218))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 222, 222))
         self.scrollAreaWidgetContents.setStyleSheet(u" QScrollBar:vertical {\n"
 "	border: none;\n"
 "    background: rgb(52, 59, 72);\n"
@@ -1382,42 +1358,66 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.new_page)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.lineEdit_2 = QLineEdit(self.page)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-        self.lineEdit_2.setGeometry(QRect(490, 140, 113, 20))
-        self.label_2 = QLabel(self.page)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(396, 140, 81, 31))
-        self.label_2.setFont(font)
-        self.lineEdit_3 = QLineEdit(self.page)
-        self.lineEdit_3.setObjectName(u"lineEdit_3")
-        self.lineEdit_3.setGeometry(QRect(490, 170, 113, 20))
-        self.label_3 = QLabel(self.page)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(366, 170, 111, 31))
-        self.lineEdit_4 = QLineEdit(self.page)
-        self.lineEdit_4.setObjectName(u"lineEdit_4")
-        self.lineEdit_4.setGeometry(QRect(490, 200, 113, 20))
-        self.label_4 = QLabel(self.page)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(356, 200, 121, 31))
-        self.label_5 = QLabel(self.page)
+        self.groupBox = QGroupBox(self.page)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setGeometry(QRect(40, 20, 352, 449))
+        self.verticalLayout_21 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
+        self.label_5 = QLabel(self.groupBox)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(380, 50, 271, 81))
         self.label_5.setFont(font)
-        self.label_6 = QLabel(self.page)
+
+        self.verticalLayout_21.addWidget(self.label_5)
+
+        self.label_2 = QLabel(self.groupBox)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font)
+
+        self.verticalLayout_21.addWidget(self.label_2)
+
+        self.lineEdit_2 = QLineEdit(self.groupBox)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+
+        self.verticalLayout_21.addWidget(self.lineEdit_2)
+
+        self.label_3 = QLabel(self.groupBox)
+        self.label_3.setObjectName(u"label_3")
+
+        self.verticalLayout_21.addWidget(self.label_3)
+
+        self.lineEdit_3 = QLineEdit(self.groupBox)
+        self.lineEdit_3.setObjectName(u"lineEdit_3")
+
+        self.verticalLayout_21.addWidget(self.lineEdit_3)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+
+        self.verticalLayout_21.addWidget(self.label_4)
+
+        self.lineEdit_4 = QLineEdit(self.groupBox)
+        self.lineEdit_4.setObjectName(u"lineEdit_4")
+
+        self.verticalLayout_21.addWidget(self.lineEdit_4)
+
+        self.label_6 = QLabel(self.groupBox)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(356, 230, 121, 21))
-        self.lineEdit_5 = QLineEdit(self.page)
+
+        self.verticalLayout_21.addWidget(self.label_6)
+
+        self.lineEdit_5 = QLineEdit(self.groupBox)
         self.lineEdit_5.setObjectName(u"lineEdit_5")
-        self.lineEdit_5.setGeometry(QRect(490, 230, 113, 20))
-        self.pushButton_2 = QPushButton(self.page)
+
+        self.verticalLayout_21.addWidget(self.lineEdit_5)
+
+        self.pushButton_2 = QPushButton(self.groupBox)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(490, 270, 75, 23))
+
+        self.verticalLayout_21.addWidget(self.pushButton_2)
+
         self.weibotext = QPlainTextEdit(self.page)
         self.weibotext.setObjectName(u"weibotext")
-        self.weibotext.setGeometry(QRect(410, 340, 256, 192))
-        
+        self.weibotext.setGeometry(QRect(480, 160, 291, 161))
         self.stackedWidget.addWidget(self.page)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
@@ -1573,9 +1573,7 @@ class Ui_MainWindow(object):
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.btn_widgets.setText(QCoreApplication.translate("MainWindow", u"Widgets", None))
-        # self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
-        # self.btn_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        # self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
         self.extraLabel.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
 #if QT_CONFIG(tooltip)
@@ -1683,10 +1681,11 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
         self.label.setText(QCoreApplication.translate("MainWindow", u"NEW PAGE TEST", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u7528\u6237uid</span></p></body></html>", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u767b\u5f55cookies</span></p></body></html>", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u722c\u53d6\u8d77\u59cb\u9875\u9762</span></p></body></html>", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u722c\u53d6\u7ec8\u6b62\u9875\u9762</span></p></body></html>", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u722c\u53d6", None))
         self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
