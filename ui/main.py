@@ -22,9 +22,15 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 from datacollector.wb import crawler
 from model.prepare import inputtext
+# from model.predicting import analyze
 import jieba
 import re
 from snownlp import SnowNLP
+from time import sleep
+import pandas as pd
+import threading
+import matplotlib.pyplot as plt
+from matplotlib import cm
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -46,15 +52,16 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         # ui related
-        self.ui.lineEdit_2.setText("1618051664")
-        self.ui.lineEdit_3.setText("WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=65508160464; XSRF-TOKEN=17523d; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRE2bAP1GUSzQugoEGlJGOpUZgdaOkVzw8whB7qRlNsKQ.; SUB=_2A25MxmTSDeRhGeBN7VIQ9SrEyzWIHXVsSQyarDV6PUJbktAKLWT2kW1NREAMJJj-dB53n5BNd5ZLK_DjfG4xvwKA; SSOLoginState=1640109186; ALF=1642701186; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
-        self.ui.lineEdit_4.setText("1")
-        self.ui.lineEdit_5.setText("1")
+        self.ui.lineEdit_uid.setText("1618051664")
+        # self.ui.lineEdit_3.setText("WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=65508160464; XSRF-TOKEN=17523d; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRE2bAP1GUSzQugoEGlJGOpUZgdaOkVzw8whB7qRlNsKQ.; SUB=_2A25MxmTSDeRhGeBN7VIQ9SrEyzWIHXVsSQyarDV6PUJbktAKLWT2kW1NREAMJJj-dB53n5BNd5ZLK_DjfG4xvwKA; SSOLoginState=1640109186; ALF=1642701186; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
+        self.ui.lineEdit_startpage.setText("1")
+        self.ui.lineEdit_endpage.setText("3")
 
         self.ui.lineEdit_filelocation.setText(r"C:\Users\zhy99\Desktop\code\final\20211222\SentimentStockPredict\example.csv")
         
         # global variable        
         self.text_df=None
+        self.is_crawling=False
 
 
 
@@ -93,10 +100,15 @@ class MainWindow(QMainWindow):
         widgets.btn_widgets.clicked.connect(self.buttonClick)
         widgets.btn_new.clicked.connect(self.buttonClick)
 
+        #crawl page
+        widgets.pushButton_save2file.clicked.connect(self.save2file)
         widgets.pushButton_2.clicked.connect(self.getpage)
+        
+        # sentiment page
         widgets.pushButton_getWordFrequency.clicked.connect(self.getWordFrequency)
         widgets.pushButton_sentiment.clicked.connect(self.getSentiment)
-
+        widgets.pushButton_readfile.clicked.connect(self.readtextfile)
+        widgets.pushButton_keywords.clicked.connect(self.showkeywords)
         # widgets.btn_save.clicked.connect(self.buttonClick)
 
         # EXTRA LEFT BOX
@@ -172,28 +184,57 @@ class MainWindow(QMainWindow):
     
 
     def getpage(self):
+        self.is_crawling=True
         print("get page")
-        print(self.ui.lineEdit_2.text())
-        print(self.ui.lineEdit_3.text())
-        print(self.ui.lineEdit_4.text())
-        print(self.ui.lineEdit_5.text())
-        mycrawl=crawler(userid=int(self.ui.lineEdit_2.text()),cookie=self.ui.lineEdit_3.text())
-        mycrawl.get_pages(startpage=int(self.ui.lineEdit_4.text()),endpage=int(self.ui.lineEdit_5.text()))
-        
-        print(mycrawl.wb_list)
-
+        print(self.ui.lineEdit_uid.text())
+        print(self.ui.lineEdit_cookies.text())
+        print(self.ui.lineEdit_startpage.text())
+        print(self.ui.lineEdit_endpage.text())
+        mycrawler=crawler(userid=int(self.ui.lineEdit_uid.text()),cookie=self.ui.lineEdit_cookies.text())
+        # mycrawl.get_pages(startpage=int(self.ui.lineEdit_startpage.text()),endpage=int(self.ui.lineEdit_endpage.text()))
+        startpage,endpage=int(self.ui.lineEdit_startpage.text()),int(self.ui.lineEdit_endpage.text())
         self.ui.weibotext.setPlainText("")
+        # progresstext=threading.Thread(target=changetext,args=(self.ui.crawlprogress,))
+        # progresstext.start()
+        self.wb_all=[]
+        for p in range(startpage,endpage):
+            self.ui.crawlprogress.setPlainText("正在抓取第{}页".format(p)+"."*(p-startpage))
+            self.ui.crawlprogress.repaint()
+            sleep(1)
+            mycrawler.get_page(p)
+            self.wb_all.extend(mycrawler.wb_list)
+            for wb in mycrawler.wb_list:  
+                self.ui.weibotext.insertPlainText(",".join([str(v) for v in dict((key, value) for key, value in wb.items() if key in ["time","text"]).values()])+"转发 {}-评论 {}-点赞 {}".format(wb["repost"],wb["comment"],wb["like"])+"\n\n")
 
-        for wb in mycrawl.wb_list:  
-            del wb["wbid"],wb["comment"],wb["repost"]  
-            self.ui.weibotext.insertPlainText(",".join([str(v) for v in wb.values()])+"\n\n")
+            mycrawler.wb_list=[]
+            sleep(2)
+        
+        self.ui.crawlprogress.setPlainText("全部完成！")
+        self.is_crawling=False
+
+    def save2file(self):
+        savepath=self.ui.lineEdit_savepath.text()
+        if savepath:
+            with open(savepath,"w") as f:
+                for wb in self.wb_all:
+                    try:
+                        f.write(",".join([str(v) for v in wb.values()])+"\n")
+                    except Exception:
+                        pass
+
+        if os.path.exists(savepath):
+            self.ui.crawlprogress.setPlainText("已保存至文件 %s" % savepath)
+            self.ui.crawlprogress.repaint()
+
+        
+        
         # self.ui.textBrowser.show()
         # self.ui.textBrowser.repaint()
 
     def getWordFrequency(self):
         myinputtext=inputtext()
-        if self.text_df is None:
-            self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        
         text_list=[jieba.lcut(t) for t in self.text_df["text"].tolist()]
         print(text_list[:2])
         print()
@@ -224,13 +265,58 @@ class MainWindow(QMainWindow):
     
     def getSentiment(self):
         myinputtext=inputtext()
-        if self.text_df is None:
-            self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
         
-        self.ui.plainTextEdit_result.setPlainText("分析文本情感指数...")
-        for text in self.text_df["text"].to_list():
+        self.ui.plainTextEdit_result.setPlainText("")
+        # print(self.text_df[:5])
+        # pos,neg,score=analyze(self.text_df)
+        # print(pos,neg,score)
+        for idx,text in enumerate(self.text_df["text"].to_list()):
             s=SnowNLP(text)
-            self.ui.plainTextEdit_result.insertPlainText("%s %.2f" % (text,s.sentiments)+"\n")
+            self.ui.plainTextEdit_result.insertPlainText("%s %.2f" % (text[:10],s.sentiments-0.5)+"\n")
+
+            # ai.baidu.com
+            # self.ui.plainTextEdit_result.insertPlainText("积极:%.2f 消极:%.2f 成绩:%.2f——%s\n" % (pos[idx],neg[idx],score[idx],text))
+
+    def readtextfile(self):
+        self.ui.weibotext_file.setPlainText("")
+        myinputtext=inputtext()
+        self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        self.ui.weibotext_file.setPlainText("\n\n".join(["\n".join([a[0],a[1]]) for a in zip(self.text_df["time"].tolist(),self.text_df["text"].tolist())]))
+
+    def showkeywords(self):
+        self.ui.plainTextEdit_result.setPlainText("")
+        myinputtext=inputtext()
+        self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        text_list=[jieba.lcut(t) for t in self.text_df["text"].tolist()]
+        text_removestopword=myinputtext.remove_stopword(text_list)
+        print(text_removestopword[:5])
+        df=pd.DataFrame([b for a in text_removestopword for b in a],columns=["word"])
+
+        df_count=df["word"].value_counts()
+        for idx in range(1,len(df_count)):
+            self.ui.plainTextEdit_result.insertPlainText("%s %d" % (df_count.index[idx],df_count.iloc[idx])+"\n")
+        df_count_freq=pd.DataFrame(df_count[1:])
+        df_count_freq.columns=["freq"]
+        df_count_freq_select=df_count_freq[df_count_freq["freq"]>len(df)/300]
+        print(len(df))
+
+        plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
+        norm = plt.Normalize(-1,1)
+        map_vir = cm.get_cmap(name='viridis')
+        colors = map_vir(norm((df_count_freq_select["freq"]-df_count_freq_select["freq"].min())/(df_count_freq_select["freq"].max()-df_count_freq_select["freq"].min()).tolist()))
+        # print(norm(df_count_freq_select["freq"].tolist()))
+        plt.bar(df_count_freq_select.index.tolist(),df_count_freq_select["freq"].tolist(),color=colors)
+        plt.xticks(fontproperties = 'Simhei', size = 18)
+        plt.xticks(fontproperties = 'Simhei', size = 18)
+        plt.show()
+
+        # df.sort_values("word",inplace=True)
+        # print(df)
+
+
+
 
 
     # RESIZE EVENTS

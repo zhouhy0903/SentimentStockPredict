@@ -186,20 +186,12 @@ class crawler():
 
 
 if __name__=="__main__":
-    # 这里填写需要抓取的用户id和cookie
-    #mycrawler=crawler("1638782947","ALF=1640362327; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRBsyH9vcYQI4lI1o5lUJmTvEBaQYooAa_blD0ngic-SU.; SUB=_2A25MpeeTDeRhGeBN7VIQ9SrEyzWIHXVsaYnbrDV6PUJbktCOLWutkW1NREAMJFbFqy3iLLRvpX43kTyJe_xfLPMo; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5NHD95Qce0q7eK-X1h54Ws4DqcjSMNxyMrS7qgSLPNDQwBtt; _T_WM=55480958530; MLOGIN=1; M_WEIBOCN_PARAMS=oid=4713851914813553&luicode=10000011&lfid=1076032803301701")
     uid=input("Enter uid: ")
     cookies=input("Enter cookies: ")
     mycrawler=crawler(uid,cookies)
-    #startdate="2021-12-03"
-    #enddate="2021-12-05"
-
     startpage=int(input("Enter start page: "))
-    #endpage=28065
     endpage=28065
-    
     filename=input("Enter savefile name: ")
-    
     curpage=startpage
     pagenum=4 
     for i in range(startpage,endpage-pagenum,pagenum):
@@ -225,10 +217,4 @@ if __name__=="__main__":
     mycrawler.get_pages(curpage,endpage)
     with open(filename,"a") as f:
         mycrawler.write2csv(f)
-
-    #wb_dataframe=pd.DataFrame(mycrawler.wb_list)
-    #wb_dataframe["title"]=wb_dataframe["text"].apply(lambda x:x[x.find("【"):x.find("】")+1])
-    
-    #print(wb_dataframe)
-    #wb_dataframe.to_csv("caijingwang.csv",index=False)
 

@@ -1,5 +1,5 @@
 import pandas as pd
-
+import sys
 class inputtext():
     def __init__(self):
         pass
@@ -7,9 +7,13 @@ class inputtext():
     def handletxt(self,filepath):
         df=pd.DataFrame()
         try:
+            print(filepath)
+            df=pd.read_csv(filepath,header=None,encoding="gbk",error_bad_lines=False)
+        except Exception:
             df=pd.read_csv(filepath,header=None,error_bad_lines=False)
         except Exception:
             raise Exception("not find file!")
+            
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.columns=["id","time","likes","comment","share","text"]

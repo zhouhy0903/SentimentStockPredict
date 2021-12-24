@@ -14,11 +14,12 @@ from PySide6.QtWidgets import *
 
 from . resources_rc import *
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1280, 720)
+        MainWindow.resize(1077, 652)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -548,12 +549,9 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.appMargins = QVBoxLayout(self.styleSheet)
-        self.appMargins.setSpacing(0)
-        self.appMargins.setObjectName(u"appMargins")
-        self.appMargins.setContentsMargins(10, 10, 10, 10)
         self.bgApp = QFrame(self.styleSheet)
         self.bgApp.setObjectName(u"bgApp")
+        self.bgApp.setGeometry(QRect(10, 10, 1057, 632))
         self.bgApp.setStyleSheet(u"")
         self.bgApp.setFrameShape(QFrame.NoFrame)
         self.bgApp.setFrameShadow(QFrame.Raised)
@@ -1033,8 +1031,12 @@ class Ui_MainWindow(object):
         self.home = QWidget()
         self.home.setObjectName(u"home")
         self.home.setStyleSheet(u"background-image: url(:/images/images/images/vertical.png);\n"
-"background-position: center;\n"
+"background-position: bottom;\n"
 "background-repeat: no-repeat;")
+        self.label_2 = QLabel(self.home)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(260, 140, 441, 91))
+        self.label_2.setStyleSheet(u" font-size:14pt;font-family:simhei;")
         self.stackedWidget.addWidget(self.home)
         self.widgets = QWidget()
         self.widgets.setObjectName(u"widgets")
@@ -1177,7 +1179,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 222, 222))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 218))
         self.scrollAreaWidgetContents.setStyleSheet(u" QScrollBar:vertical {\n"
 "	border: none;\n"
 "    background: rgb(52, 59, 72);\n"
@@ -1382,117 +1384,190 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.new_page)
         self.sentiment_page = QWidget()
         self.sentiment_page.setObjectName(u"sentiment_page")
-        self.widget = QWidget(self.sentiment_page)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(390, 100, 258, 352))
-        self.gridLayout_3 = QGridLayout(self.widget)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.label_getresult = QLabel(self.widget)
+        self.weibotext_file = QPlainTextEdit(self.sentiment_page)
+        self.weibotext_file.setObjectName(u"weibotext_file")
+        self.weibotext_file.setGeometry(QRect(520, 70, 411, 351))
+        self.weibotext_file.setStyleSheet(u"font-size:18pt; font-weight:300;font-family:simhei;")
+        self.layoutWidget = QWidget(self.sentiment_page)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(80, 70, 421, 351))
+        self.gridLayout_5 = QGridLayout(self.layoutWidget)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.label_getresult = QLabel(self.layoutWidget)
         self.label_getresult.setObjectName(u"label_getresult")
 
-        self.gridLayout_3.addWidget(self.label_getresult, 0, 0, 1, 2)
+        self.gridLayout_5.addWidget(self.label_getresult, 0, 0, 1, 2)
 
-        self.label_filelocation = QLabel(self.widget)
+        self.label_filelocation = QLabel(self.layoutWidget)
         self.label_filelocation.setObjectName(u"label_filelocation")
+        font5 = QFont()
+        font5.setFamilies([u"simhei"])
+        font5.setPointSize(14)
+        font5.setBold(False)
+        font5.setItalic(False)
+        self.label_filelocation.setFont(font5)
+        self.label_filelocation.setStyleSheet(u" font-size:14pt;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.label_filelocation, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.label_filelocation, 1, 0, 1, 1)
 
-        self.lineEdit_filelocation = QLineEdit(self.widget)
+        self.lineEdit_filelocation = QLineEdit(self.layoutWidget)
         self.lineEdit_filelocation.setObjectName(u"lineEdit_filelocation")
+        self.lineEdit_filelocation.setStyleSheet(u" font-size:12pt;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.lineEdit_filelocation, 1, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.lineEdit_filelocation, 1, 1, 1, 1)
 
-        self.label_searchText = QLabel(self.widget)
+        self.pushButton_readfile = QPushButton(self.layoutWidget)
+        self.pushButton_readfile.setObjectName(u"pushButton_readfile")
+        self.pushButton_readfile.setFont(font5)
+        self.pushButton_readfile.setStyleSheet(u" font-size:14pt;font-family:simhei;")
+
+        self.gridLayout_5.addWidget(self.pushButton_readfile, 2, 1, 1, 1)
+
+        self.label_searchText = QLabel(self.layoutWidget)
         self.label_searchText.setObjectName(u"label_searchText")
+        self.label_searchText.setStyleSheet(u" font-size:14pt;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.label_searchText, 2, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.label_searchText, 3, 0, 1, 1)
 
-        self.lineEdit_searchText = QLineEdit(self.widget)
+        self.lineEdit_searchText = QLineEdit(self.layoutWidget)
         self.lineEdit_searchText.setObjectName(u"lineEdit_searchText")
+        self.lineEdit_searchText.setStyleSheet(u" font-size:12pt;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.lineEdit_searchText, 2, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.lineEdit_searchText, 3, 1, 1, 1)
 
-        self.splitter = QSplitter(self.widget)
-        self.splitter.setObjectName(u"splitter")
-        self.splitter.setOrientation(Qt.Horizontal)
-        self.pushButton_getWordFrequency = QPushButton(self.splitter)
+        self.gridLayout_3 = QGridLayout()
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.pushButton_getWordFrequency = QPushButton(self.layoutWidget)
         self.pushButton_getWordFrequency.setObjectName(u"pushButton_getWordFrequency")
-        self.splitter.addWidget(self.pushButton_getWordFrequency)
-        self.pushButton_sentiment = QPushButton(self.splitter)
+        self.pushButton_getWordFrequency.setStyleSheet(u" font-size:14pt;font-family:simhei;")
+
+        self.gridLayout_3.addWidget(self.pushButton_getWordFrequency, 0, 0, 1, 1)
+
+        self.pushButton_sentiment = QPushButton(self.layoutWidget)
         self.pushButton_sentiment.setObjectName(u"pushButton_sentiment")
-        self.splitter.addWidget(self.pushButton_sentiment)
+        self.pushButton_sentiment.setStyleSheet(u" font-size:14pt;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.splitter, 3, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.pushButton_sentiment, 0, 1, 1, 1)
 
-        self.plainTextEdit_result = QPlainTextEdit(self.widget)
+        self.pushButton_keywords = QPushButton(self.layoutWidget)
+        self.pushButton_keywords.setObjectName(u"pushButton_keywords")
+        self.pushButton_keywords.setStyleSheet(u" font-size:14pt;font-family:simhei;")
+
+        self.gridLayout_3.addWidget(self.pushButton_keywords, 0, 2, 1, 1)
+
+
+        self.gridLayout_5.addLayout(self.gridLayout_3, 4, 1, 1, 1)
+
+        self.plainTextEdit_result = QPlainTextEdit(self.layoutWidget)
         self.plainTextEdit_result.setObjectName(u"plainTextEdit_result")
+        self.plainTextEdit_result.setStyleSheet(u"font-size:18pt; font-weight:300;font-family:simhei;")
 
-        self.gridLayout_3.addWidget(self.plainTextEdit_result, 4, 0, 1, 2)
+        self.gridLayout_5.addWidget(self.plainTextEdit_result, 5, 0, 1, 2)
 
         self.stackedWidget.addWidget(self.sentiment_page)
         self.page = QWidget()
         self.page.setObjectName(u"page")
         self.groupBox = QGroupBox(self.page)
         self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(100, 70, 352, 449))
+        self.groupBox.setGeometry(QRect(50, 30, 352, 449))
         self.verticalLayout_21 = QVBoxLayout(self.groupBox)
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
-        self.label_5 = QLabel(self.groupBox)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font)
+        self.label_crawltitle = QLabel(self.groupBox)
+        self.label_crawltitle.setObjectName(u"label_crawltitle")
+        self.label_crawltitle.setFont(font)
 
-        self.verticalLayout_21.addWidget(self.label_5)
+        self.verticalLayout_21.addWidget(self.label_crawltitle)
 
-        self.label_2 = QLabel(self.groupBox)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setFont(font)
+        self.label_uid = QLabel(self.groupBox)
+        self.label_uid.setObjectName(u"label_uid")
+        self.label_uid.setFont(font)
 
-        self.verticalLayout_21.addWidget(self.label_2)
+        self.verticalLayout_21.addWidget(self.label_uid)
 
-        self.lineEdit_2 = QLineEdit(self.groupBox)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lineEdit_uid = QLineEdit(self.groupBox)
+        self.lineEdit_uid.setObjectName(u"lineEdit_uid")
+        self.lineEdit_uid.setStyleSheet(u"font-size:12pt;")
 
-        self.verticalLayout_21.addWidget(self.lineEdit_2)
+        self.verticalLayout_21.addWidget(self.lineEdit_uid)
 
-        self.label_3 = QLabel(self.groupBox)
-        self.label_3.setObjectName(u"label_3")
+        self.label_cookies = QLabel(self.groupBox)
+        self.label_cookies.setObjectName(u"label_cookies")
 
-        self.verticalLayout_21.addWidget(self.label_3)
+        self.verticalLayout_21.addWidget(self.label_cookies)
 
-        self.lineEdit_3 = QLineEdit(self.groupBox)
-        self.lineEdit_3.setObjectName(u"lineEdit_3")
+        self.lineEdit_cookies = QLineEdit(self.groupBox)
+        self.lineEdit_cookies.setObjectName(u"lineEdit_cookies")
+        self.lineEdit_cookies.setStyleSheet(u"font-size:12pt;")
 
-        self.verticalLayout_21.addWidget(self.lineEdit_3)
+        self.verticalLayout_21.addWidget(self.lineEdit_cookies)
 
-        self.label_4 = QLabel(self.groupBox)
-        self.label_4.setObjectName(u"label_4")
+        self.label_startpage = QLabel(self.groupBox)
+        self.label_startpage.setObjectName(u"label_startpage")
 
-        self.verticalLayout_21.addWidget(self.label_4)
+        self.verticalLayout_21.addWidget(self.label_startpage)
 
-        self.lineEdit_4 = QLineEdit(self.groupBox)
-        self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.lineEdit_startpage = QLineEdit(self.groupBox)
+        self.lineEdit_startpage.setObjectName(u"lineEdit_startpage")
+        self.lineEdit_startpage.setStyleSheet(u"font-size:12pt;")
 
-        self.verticalLayout_21.addWidget(self.lineEdit_4)
+        self.verticalLayout_21.addWidget(self.lineEdit_startpage)
 
-        self.label_6 = QLabel(self.groupBox)
-        self.label_6.setObjectName(u"label_6")
+        self.label_endpage = QLabel(self.groupBox)
+        self.label_endpage.setObjectName(u"label_endpage")
 
-        self.verticalLayout_21.addWidget(self.label_6)
+        self.verticalLayout_21.addWidget(self.label_endpage)
 
-        self.lineEdit_5 = QLineEdit(self.groupBox)
-        self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.lineEdit_endpage = QLineEdit(self.groupBox)
+        self.lineEdit_endpage.setObjectName(u"lineEdit_endpage")
+        self.lineEdit_endpage.setStyleSheet(u"font-size:12pt;")
 
-        self.verticalLayout_21.addWidget(self.lineEdit_5)
+        self.verticalLayout_21.addWidget(self.lineEdit_endpage)
 
         self.pushButton_2 = QPushButton(self.groupBox)
         self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setStyleSheet(u"font-size:14pt;font-family:simhei;")
 
         self.verticalLayout_21.addWidget(self.pushButton_2)
 
         self.weibotext = QPlainTextEdit(self.page)
         self.weibotext.setObjectName(u"weibotext")
-        self.weibotext.setGeometry(QRect(550, 200, 291, 161))
+        self.weibotext.setGeometry(QRect(460, 100, 481, 271))
+        font6 = QFont()
+        font6.setFamilies([u"simhei"])
+        font6.setPointSize(18)
+        font6.setBold(True)
+        font6.setItalic(False)
+        self.weibotext.setFont(font6)
+        self.weibotext.setStyleSheet(u"font-size:18pt; font-weight:600;font-family:simhei;")
+        self.crawlprogress = QPlainTextEdit(self.page)
+        self.crawlprogress.setObjectName(u"crawlprogress")
+        self.crawlprogress.setGeometry(QRect(460, 40, 371, 51))
+        self.crawlprogress.setStyleSheet(u"font-size:18pt; font-weight:600;font-family:simhei;")
+        self.layoutWidget1 = QWidget(self.page)
+        self.layoutWidget1.setObjectName(u"layoutWidget1")
+        self.layoutWidget1.setGeometry(QRect(520, 390, 381, 86))
+        self.gridLayout_4 = QGridLayout(self.layoutWidget1)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.label_savepath = QLabel(self.layoutWidget1)
+        self.label_savepath.setObjectName(u"label_savepath")
+        self.label_savepath.setStyleSheet(u"font-size:14pt;font-family:simhei;")
+
+        self.gridLayout_4.addWidget(self.label_savepath, 0, 0, 1, 1)
+
+        self.pushButton_save2file = QPushButton(self.layoutWidget1)
+        self.pushButton_save2file.setObjectName(u"pushButton_save2file")
+        self.pushButton_save2file.setStyleSheet(u"font-size:14pt;font-family:simhei;")
+
+        self.gridLayout_4.addWidget(self.pushButton_save2file, 2, 0, 1, 1)
+
+        self.lineEdit_savepath = QLineEdit(self.layoutWidget1)
+        self.lineEdit_savepath.setObjectName(u"lineEdit_savepath")
+        self.lineEdit_savepath.setStyleSheet(u"font-size:12pt;")
+
+        self.gridLayout_4.addWidget(self.lineEdit_savepath, 1, 0, 1, 1)
+
         self.stackedWidget.addWidget(self.page)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
@@ -1595,11 +1670,11 @@ class Ui_MainWindow(object):
         self.creditsLabel = QLabel(self.bottomBar)
         self.creditsLabel.setObjectName(u"creditsLabel")
         self.creditsLabel.setMaximumSize(QSize(16777215, 16))
-        font5 = QFont()
-        font5.setFamilies([u"Segoe UI"])
-        font5.setBold(False)
-        font5.setItalic(False)
-        self.creditsLabel.setFont(font5)
+        font7 = QFont()
+        font7.setFamilies([u"Segoe UI"])
+        font7.setBold(False)
+        font7.setItalic(False)
+        self.creditsLabel.setFont(font7)
         self.creditsLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout_5.addWidget(self.creditsLabel)
@@ -1628,14 +1703,11 @@ class Ui_MainWindow(object):
 
         self.appLayout.addWidget(self.contentBox)
 
-
-        self.appMargins.addWidget(self.bgApp)
-
         MainWindow.setCentralWidget(self.styleSheet)
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1691,6 +1763,7 @@ class Ui_MainWindow(object):
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">\u7a0b\u8bbe\u5927\u4f5c\u4e1a\u2014\u2014\u5fae\u535a\u722c\u866b\u53ca\u8206\u60c5\u5206\u6790</p><p align=\"center\">2021\u5e7412\u670825\u65e5</p><p align=\"center\">\u5c0f\u7ec4\u6210\u5458\u2014\u2014\u5468\u822a\u5b87 \u9646\u5353\u59a4 \u5f20\u68a6\u6708 \u8d75\u5b8f\u5b87 \u66f9\u54cd</p></body></html>", None))
         self.labelBoxBlenderInstalation.setText(QCoreApplication.translate("MainWindow", u"FILE BOX", None))
         self.lineEdit.setText("")
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Type here", None))
@@ -1758,22 +1831,27 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
         self.label.setText(QCoreApplication.translate("MainWindow", u"NEW PAGE TEST", None))
-        self.label_getresult.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">\u7ed3\u679c\u5206\u6790</span></p></body></html>", None))
-        self.label_filelocation.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u4f4d\u7f6e", None))
-        self.label_searchText.setText(QCoreApplication.translate("MainWindow", u"\u641c\u7d22\u8bcd", None))
+        self.label_getresult.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-family:'simhei'; font-size:24pt; font-weight:600;\">\u7ed3\u679c\u5206\u6790</span></p></body></html>", None))
+        self.label_filelocation.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">\u6587\u4ef6\u4f4d\u7f6e</p></body></html>", None))
+        self.pushButton_readfile.setText(QCoreApplication.translate("MainWindow", u"\u8bfb\u53d6\u6587\u4ef6", None))
+        self.label_searchText.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-family:'simhei';\">\u641c\u7d22\u8bcd</span></p></body></html>", None))
         self.pushButton_getWordFrequency.setText(QCoreApplication.translate("MainWindow", u"\u7edf\u8ba1\u8bcd\u9891", None))
         self.pushButton_sentiment.setText(QCoreApplication.translate("MainWindow", u"\u60c5\u611f\u5206\u6790", None))
+        self.pushButton_keywords.setText(QCoreApplication.translate("MainWindow", u"\u70ed\u70b9\u8bcd", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u7528\u6237uid</span></p></body></html>", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u767b\u5f55cookies</span></p></body></html>", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u722c\u53d6\u8d77\u59cb\u9875\u9762</span></p></body></html>", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;\">\u722c\u53d6\u7ec8\u6b62\u9875\u9762</span></p></body></html>", None))
+        self.label_crawltitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;font-family:simhei;\">\u5fae\u535a\u6587\u672c\u5185\u5bb9\u722c\u53d6</span></p></body></html>", None))
+        self.label_uid.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;font-family:simhei;\n"
+"\">\u7528\u6237uid</span></p></body></html>", None))
+        self.label_cookies.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;font-family:simhei;\">\u767b\u5f55cookies\uff08\u9009\u586b\uff09</span></p></body></html>", None))
+        self.label_startpage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;font-family:simhei;\">\u722c\u53d6\u8d77\u59cb\u9875\u9762</span></p></body></html>", None))
+        self.label_endpage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:14pt;font-family:simhei;\">\u722c\u53d6\u7ec8\u6b62\u9875\u9762</span></p></body></html>", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u722c\u53d6", None))
+        self.weibotext.setPlainText("")
+        self.label_savepath.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">\u4fdd\u5b58\u8def\u5f84</p></body></html>", None))
+        self.pushButton_save2file.setText(QCoreApplication.translate("MainWindow", u"\u4fdd\u5b58\u81f3\u6587\u4ef6", None))
         self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.btn_print.setText(QCoreApplication.translate("MainWindow", u"Print", None))
         self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"By: Wanderson M. Pimenta", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.3", None))
     # retranslateUi
-
