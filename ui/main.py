@@ -24,13 +24,19 @@ from datacollector.wb import crawler
 from model.prepare import inputtext
 # from model.predicting import analyze
 import jieba
+
 import re
 from snownlp import SnowNLP
 from time import sleep
+from random import randint
 import pandas as pd
-import threading
+import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 from matplotlib import cm
+from wordcloud import WordCloud, STOPWORDS
+import PIL.Image as image
+import matplotlib.colors as colors
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -57,11 +63,11 @@ class MainWindow(QMainWindow):
         self.ui.lineEdit_startpage.setText("1")
         self.ui.lineEdit_endpage.setText("3")
 
-        self.ui.lineEdit_filelocation.setText(r"C:\Users\zhy99\Desktop\code\final\20211222\SentimentStockPredict\example.csv")
+        self.ui.lineEdit_filelocation.setText(r"C:\Users\zhy99\Desktop\code\final\20211224\SentimentStockPredict\test1.csv")
         
         # global variable        
         self.text_df=None
-        self.is_crawling=False
+        # self.is_crawling=False
 
 
 
@@ -74,7 +80,7 @@ class MainWindow(QMainWindow):
 
         # APP NAME
         # ///////////////////////////////////////////////////////////////
-        title = "微博信息爬取及股市预测"
+        title = "微博爬虫及舆情分析"
         description = "程设大作业"
         # APPLY TEXTS
         self.setWindowTitle(title)
@@ -108,7 +114,9 @@ class MainWindow(QMainWindow):
         widgets.pushButton_getWordFrequency.clicked.connect(self.getWordFrequency)
         widgets.pushButton_sentiment.clicked.connect(self.getSentiment)
         widgets.pushButton_readfile.clicked.connect(self.readtextfile)
+        
         widgets.pushButton_keywords.clicked.connect(self.showkeywords)
+        
         # widgets.btn_save.clicked.connect(self.buttonClick)
 
         # EXTRA LEFT BOX
@@ -184,7 +192,7 @@ class MainWindow(QMainWindow):
     
 
     def getpage(self):
-        self.is_crawling=True
+        # self.is_crawling=True
         print("get page")
         print(self.ui.lineEdit_uid.text())
         print(self.ui.lineEdit_cookies.text())
@@ -198,7 +206,7 @@ class MainWindow(QMainWindow):
         # progresstext.start()
         self.wb_all=[]
         for p in range(startpage,endpage):
-            self.ui.crawlprogress.setPlainText("正在抓取第{}页".format(p)+"."*(p-startpage))
+            self.ui.crawlprogress.setPlainText("正在抓取第{}页".format(p)+"."*(p-startpage)%10)
             self.ui.crawlprogress.repaint()
             sleep(1)
             mycrawler.get_page(p)
@@ -207,10 +215,14 @@ class MainWindow(QMainWindow):
                 self.ui.weibotext.insertPlainText(",".join([str(v) for v in dict((key, value) for key, value in wb.items() if key in ["time","text"]).values()])+"转发 {}-评论 {}-点赞 {}".format(wb["repost"],wb["comment"],wb["like"])+"\n\n")
 
             mycrawler.wb_list=[]
-            sleep(2)
+            t=randint(5,7)
+            print("随机延时{}s".format(t))
+            sleep(randint(3,5))
         
         self.ui.crawlprogress.setPlainText("全部完成！")
-        self.is_crawling=False
+        # self.is_crawling=False
+
+
 
     def save2file(self):
         savepath=self.ui.lineEdit_savepath.text()
@@ -268,15 +280,33 @@ class MainWindow(QMainWindow):
         self.text_df=myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
         
         self.ui.plainTextEdit_result.setPlainText("")
-        # print(self.text_df[:5])
+        print(self.text_df[:5])
         # pos,neg,score=analyze(self.text_df)
         # print(pos,neg,score)
-        for idx,text in enumerate(self.text_df["text"].to_list()):
-            s=SnowNLP(text)
-            self.ui.plainTextEdit_result.insertPlainText("%s %.2f" % (text[:10],s.sentiments-0.5)+"\n")
+        # print(len(self.text_df)/50)
 
+        # self.text_df=self.text_df[:len(self.text_df)//5]
+
+        sentiment_score=[]
+        for idx,text in enumerate(self.text_df["text"].to_list()):
+            if idx % 40==0:
+                print("{}s left".format((len(self.text_df)-idx)//40))
+            s=SnowNLP(text)
+            sentiment_score.append(s.sentiments-0.5)
+            self.ui.plainTextEdit_result.insertPlainText("%s %.2f" % (text[:10],s.sentiments-0.5)+"\n")
+        
             # ai.baidu.com
             # self.ui.plainTextEdit_result.insertPlainText("积极:%.2f 消极:%.2f 成绩:%.2f——%s\n" % (pos[idx],neg[idx],score[idx],text))
+
+        # 画出每天的情感分析图
+        self.text_df["score"]=sentiment_score
+        self.text_df["date"]=self.text_df["time"].apply(lambda x:x[:10])
+        textday_df=pd.DataFrame()
+        textday_df=self.text_df.groupby("date").score.mean().to_frame()
+        textday_df.plot()
+        plt.show()
+        print(textday_df)        
+        
 
     def readtextfile(self):
         self.ui.weibotext_file.setPlainText("")
@@ -298,22 +328,60 @@ class MainWindow(QMainWindow):
             self.ui.plainTextEdit_result.insertPlainText("%s %d" % (df_count.index[idx],df_count.iloc[idx])+"\n")
         df_count_freq=pd.DataFrame(df_count[1:])
         df_count_freq.columns=["freq"]
-        df_count_freq_select=df_count_freq[df_count_freq["freq"]>len(df)/300]
+        df_count_freq_select=df_count_freq[df_count_freq["freq"]>len(df)/500]
         print(len(df))
 
         plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
         plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
         norm = plt.Normalize(-1,1)
         map_vir = cm.get_cmap(name='viridis')
-        colors = map_vir(norm((df_count_freq_select["freq"]-df_count_freq_select["freq"].min())/(df_count_freq_select["freq"].max()-df_count_freq_select["freq"].min()).tolist()))
+        colors_map = map_vir(norm((df_count_freq_select["freq"]-df_count_freq_select["freq"].min())/(df_count_freq_select["freq"].max()-df_count_freq_select["freq"].min()).tolist()))
         # print(norm(df_count_freq_select["freq"].tolist()))
-        plt.bar(df_count_freq_select.index.tolist(),df_count_freq_select["freq"].tolist(),color=colors)
-        plt.xticks(fontproperties = 'Simhei', size = 18)
-        plt.xticks(fontproperties = 'Simhei', size = 18)
+        plt.bar(df_count_freq_select.index.tolist(),df_count_freq_select["freq"].tolist(),color=colors_map)
+        plt.xticks(fontproperties = 'Simhei', size = 16)
+        plt.yticks(fontproperties = 'Simhei', size = 18)
         plt.show()
 
-        # df.sort_values("word",inplace=True)
-        # print(df)
+
+    
+        self.ui.plainTextEdit_result.setPlainText("")
+        myinputtext = inputtext()
+        self.text_df = myinputtext.handletxt(self.ui.lineEdit_filelocation.text())
+        text_list = [jieba.lcut(t) for t in self.text_df["text"].tolist()]
+        text_removestopword = myinputtext.remove_stopword(text_list)
+        text_details = text_removestopword[:5]
+        text_details2 = " ".join(str(id) for id in text_details)
+        text_analyze = re.sub('\'', '' ,text_details2)
+
+        # file_handle = open('words.txt', 'w+')
+        # print(text_analyze, file=file_handle)
+
+        font = r'C:\Windows\Fonts\msyh.ttc'  # 设置字体
+        myImg = np.array(image.open("bg.jpg")) # 背景获取
+        color = ['#ed1c24', '#b91e45', '#ea5e51', '#65082f', '#0c1629', '#35838d', '#fccb1b']
+        colorMap = colors.ListedColormap(color)
+        wc = WordCloud(
+            colormap=colorMap,
+            background_color=None,  # 与背景透明同时设置
+            mode='RGBA',  # 背景色透明
+            max_font_size=250,
+            font_path=font,
+            width=1800,
+            height=1500,
+            mask=myImg,
+            prefer_horizontal=0.9,
+            # max_words=200,
+            relative_scaling=0.5, )  # 词频和字体大小的关联性
+        # 生成词云
+        wordcloud = wc.generate(text_analyze)
+        plt.figure()
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+        plt.imshow(wordcloud, interpolation="bilinear")  # 显示词云图
+        plt.axis("off")  # 关闭坐标轴
+        plt.show()  # 显示窗口
+        # wordcloud.to_file('wordCloud.png')  # 保存图片
+            # df.sort_values("word",inplace=True)
+            # print(df)
 
 
 
