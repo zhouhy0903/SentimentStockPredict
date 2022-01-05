@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         # ui related
-        self.ui.lineEdit_uid.setText("1618051664")
+        self.ui.lineEdit_uid.setText("1618051664;2803301701")
         # self.ui.lineEdit_3.setText("WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWoawuI8MYqqWDUyLHe9l9.5JpX5K-hUgL.Foq0So5pSKBReh.2dJLoI7f0Us8EMNWyqcHkwJy4; MLOGIN=1; loginScene=102003; _T_WM=65508160464; XSRF-TOKEN=17523d; SCF=Ap2l6JZls0FbnRHRbW5c1o7xhyTXf-07BTrGNlGwL0uRE2bAP1GUSzQugoEGlJGOpUZgdaOkVzw8whB7qRlNsKQ.; SUB=_2A25MxmTSDeRhGeBN7VIQ9SrEyzWIHXVsSQyarDV6PUJbktAKLWT2kW1NREAMJJj-dB53n5BNd5ZLK_DjfG4xvwKA; SSOLoginState=1640109186; ALF=1642701186; M_WEIBOCN_PARAMS=lfid=102803&luicode=20000174&uicode=20000174")
         self.ui.lineEdit_startpage.setText("1")
         self.ui.lineEdit_endpage.setText("3")
@@ -198,29 +198,33 @@ class MainWindow(QMainWindow):
         print(self.ui.lineEdit_cookies.text())
         print(self.ui.lineEdit_startpage.text())
         print(self.ui.lineEdit_endpage.text())
-        mycrawler=crawler(userid=int(self.ui.lineEdit_uid.text()),cookie=self.ui.lineEdit_cookies.text())
-        # mycrawl.get_pages(startpage=int(self.ui.lineEdit_startpage.text()),endpage=int(self.ui.lineEdit_endpage.text()))
-        startpage,endpage=int(self.ui.lineEdit_startpage.text()),int(self.ui.lineEdit_endpage.text())
-        self.ui.weibotext.setPlainText("")
-        # progresstext=threading.Thread(target=changetext,args=(self.ui.crawlprogress,))
-        # progresstext.start()
-        self.wb_all=[]
-        for p in range(startpage,endpage):
-            self.ui.crawlprogress.setPlainText("正在抓取第{}页".format(p)+"."*(p-startpage)%10)
-            self.ui.crawlprogress.repaint()
-            sleep(1)
-            mycrawler.get_page(p)
-            self.wb_all.extend(mycrawler.wb_list)
-            for wb in mycrawler.wb_list:  
-                self.ui.weibotext.insertPlainText(",".join([str(v) for v in dict((key, value) for key, value in wb.items() if key in ["time","text"]).values()])+"转发 {}-评论 {}-点赞 {}".format(wb["repost"],wb["comment"],wb["like"])+"\n\n")
 
-            mycrawler.wb_list=[]
-            t=randint(5,7)
-            print("随机延时{}s".format(t))
-            sleep(randint(3,5))
-        
-        self.ui.crawlprogress.setPlainText("全部完成！")
-        # self.is_crawling=False
+        uids=self.ui.lineEdit_uid.text().split(";")
+        self.ui.weibotext.setPlainText("")
+        for uid in uids:
+            print(uid)
+            mycrawler=crawler(userid=int(uid),cookie=self.ui.lineEdit_cookies.text())
+            # mycrawl.get_pages(startpage=int(self.ui.lineEdit_startpage.text()),endpage=int(self.ui.lineEdit_endpage.text()))
+            startpage,endpage=int(self.ui.lineEdit_startpage.text()),int(self.ui.lineEdit_endpage.text())
+            # progresstext=threading.Thread(target=changetext,args=(self.ui.crawlprogress,))
+            # progresstext.start()
+            self.wb_all=[]
+            for p in range(startpage,endpage):
+                self.ui.crawlprogress.setPlainText("正在抓取" + str(uid) + "第{}页".format(str(p))+"."*((p-startpage)%10))
+                self.ui.crawlprogress.repaint()
+                sleep(1)
+                mycrawler.get_page(p)
+                self.wb_all.extend(mycrawler.wb_list)
+                for wb in mycrawler.wb_list:  
+                    self.ui.weibotext.insertPlainText(",".join([str(v) for v in dict((key, value) for key, value in wb.items() if key in ["time","text"]).values()])+"转发 {}-评论 {}-点赞 {}".format(wb["repost"],wb["comment"],wb["like"])+"\n\n")
+
+                mycrawler.wb_list=[]
+                t=randint(5,7)
+                print("随机延时{}s".format(t))
+                sleep(randint(3,5))
+            
+            self.ui.crawlprogress.setPlainText("全部完成！")
+            # self.is_crawling=False
 
 
 
